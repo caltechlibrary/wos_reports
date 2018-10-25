@@ -1,7 +1,5 @@
 import os,csv,argparse
-from datetime import datetime
 import requests
-import dataset
 
 parser = argparse.ArgumentParser(description=\
         "Get WOS citation counts for a list of DOIs")

@@ -43,6 +43,8 @@ def get_wos_refs(new=True):
         diff = (current-date)
         base_url = base_url + '&loadTimeSpan=' +str(diff.days)+'D'
 
+
+
     url = base_url + '&count=1&firstRecord=1&usrQuery=OG=California%20Institute%20of%20Technology'
 
     incomplete = dataset.has_key(collection,"incomplete")

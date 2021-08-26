@@ -11,15 +11,39 @@ def add_count(prefix,dictionary,count=1):
     else:
         dictionary[prefix] = count
 
+def is_cell(ref):
+    cell = False
+    if 'cell' in ref:
+        cell = True
+    if 'j.cub' in ref:
+        cell = True
+    if 'j.neuron' in ref:
+        cell = True
+    if 'j.devcell' in ref:
+        cell = True
+    if 'j.matter' in ref:
+        cell = True
+    if 'j.celrep' in ref:
+        cell = True
+    if 'j.str' in ref:
+        cell = True
+    if 'j.molcel' in ref:
+        cell = True
+    if 'j.joule' in ref:
+        cell = True
+    if 'j.cels' in ref:
+        cell = True
+    return cell
+
 article_prefixes = {}
 reference_prefixes = {}
 
-with open('resnick_references.json') as references:
+with open('chen_references.json') as references:
     refs = json.loads(references.read())
     for ref in refs.keys():
         if ref.startswith('10.'):
             prefix = ref.split('/')[0]
-            if 'cell' in ref and prefix == '10.1016':
+            if is_cell(ref) and prefix == '10.1016':
                 prefix = 'cell'
             add_count(prefix,article_prefixes)
         for citation in refs[ref]:
@@ -27,7 +51,7 @@ with open('resnick_references.json') as references:
                 prefix = citation['DOI'].split('/')[0]
                 if prefix.startswith('DOI'):
                     prefix = prefix.split(' ')[1]
-                if 'cell' in ref and prefix == '10.1016':
+                if is_cell(ref) and prefix == '10.1016':
                     prefix = 'cell'
                 add_count(prefix,reference_prefixes)
 
@@ -65,12 +89,12 @@ for prefix in reference_prefixes:
 article_publishers = sorted(article_publishers.items(), key=lambda x:x[1], reverse=True)
 reference_publishers = sorted(reference_publishers.items(), key=lambda x:x[1], reverse=True)
 
-with open('resnick_article_publishers.csv','w') as outfile:
+with open('chen_article_publishers.csv','w') as outfile:
     writer = csv.writer(outfile)
     for publisher in article_publishers:
         writer.writerow(publisher)
 
-with open('resnick_reference_publishers.csv','w') as outfile:
+with open('chen_reference_publishers.csv','w') as outfile:
     writer = csv.writer(outfile)
     for publisher in reference_publishers:
         writer.writerow(publisher)

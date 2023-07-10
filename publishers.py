@@ -38,7 +38,7 @@ def is_cell(ref):
 article_prefixes = {}
 reference_prefixes = {}
 
-with open('chen_references.json') as references:
+with open('AIAA_references_crossref.json') as references:
     refs = json.loads(references.read())
     for ref in refs.keys():
         if ref.startswith('10.'):
@@ -89,12 +89,12 @@ for prefix in reference_prefixes:
 article_publishers = sorted(article_publishers.items(), key=lambda x:x[1], reverse=True)
 reference_publishers = sorted(reference_publishers.items(), key=lambda x:x[1], reverse=True)
 
-with open('chen_article_publishers.csv','w') as outfile:
+with open('AIAA_crossref_article_publishers.csv','w') as outfile:
     writer = csv.writer(outfile)
     for publisher in article_publishers:
         writer.writerow(publisher)
 
-with open('chen_reference_publishers.csv','w') as outfile:
+with open('AIAA_crossref_reference_publishers.csv','w') as outfile:
     writer = csv.writer(outfile)
     for publisher in reference_publishers:
         writer.writerow(publisher)
